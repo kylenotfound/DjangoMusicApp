@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} User Profile {% endblock %}
+
+{% block content %}
+
+  <div class="row py-5 px-4">
+    <div class="col-md-5 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 cover">
+          <div class="media align-items-end profile-head">
+            <div class="profile mr-3"><img src="{{photo}}" alt="..." width="130" class="rounded mb-2 img-thumbnail"></div>
+              <div class="media-body mb-5">
+                <h4 class="mt-0 mb-0">{{user.first_name}}</h4>
+              </div>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                  <h5 class="font-weight-bold mb-0 d-block">{{followers}}</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Spotify Followers</small>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <form method="GET" action="/profile/{{user.id}}/topsongs">
+            <button type="submit">View {{user.first_name}} top songs</button>
+          </form>
+          <div class="py-4 px-4">
+            <h5>Last seen listening to:</h5><br />
+            <div class="row">
+              {% if last %}
+                <iframe src="https://open.spotify.com/embed/track/{{ last }}" width="300" height="380" 
+                  frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+              {% endif %}
+            </div>
+          </div>
+          <div class="py-4 px-4">
+            {% if songs %}
+              {% for song in songs %}
+                <span>{{song}}</span><br />
+              {% endfor%}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
